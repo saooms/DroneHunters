@@ -33,11 +33,12 @@ namespace Logic
         private void Initialize(DataReceiver receiver)
         {
             this.receiver = receiver;
-            Visual.Map.activeMap.PlaceDrone(this);
             receiver.StartReceiveData(OnReceiveData);
+
+            Visual.Map.activeMap.PlaceDrone(this);
         }
 
-        protected void OnReceiveData(Coordinate coordinate) 
+        private void OnReceiveData(Coordinate coordinate) 
         {
             _position = coordinate;
         }

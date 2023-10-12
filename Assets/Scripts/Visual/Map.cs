@@ -32,12 +32,16 @@ namespace Visual
                 _mapOffset.y = value.y % Mathf.Pow(2, zoom);
             }
         }
+
         private void Awake()
         {
             activeMap = this;
             UpdateMap();
         }
 
+        /// <summary>
+        ///     Sets the zoom value and updates the map.
+        /// </summary>
         private void ChangeZoom(int zoom)
         {
             zoom = Mathf.Clamp(zoom, 1, 13);
@@ -49,6 +53,9 @@ namespace Visual
             UpdateMap();
         }
 
+        /// <summary>
+        ///     Reloads all visible mapchunks.
+        /// </summary>
         private void UpdateMap()
         {
             foreach (Transform child in mapHolder)
@@ -87,6 +94,7 @@ namespace Visual
 
         public void OnInteraction()
         {
+            // left mouse button click
             if (Input.GetMouseButtonDown(0))
             {
                 RaycastHit hit;
@@ -96,6 +104,7 @@ namespace Visual
                     PlaceMarker(hit.point, hunterDronePrefab.transform);
             }
 
+            // middle mouse button click
             if (Input.GetMouseButtonDown(2))
             {
                 Debug.Log(Input.GetAxis("Mouse X"));
@@ -106,6 +115,7 @@ namespace Visual
                 UpdateMap();
             }
 
+            // scroll
             if (Input.mouseScrollDelta.y != 0)
                 ChangeZoom(zoom + (int)Input.mouseScrollDelta.y);
         }

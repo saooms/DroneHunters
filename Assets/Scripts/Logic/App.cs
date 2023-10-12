@@ -8,10 +8,11 @@ namespace Logic
 {
     public class App : MonoBehaviour
     {
-        [SerializeField] private Visual.Map map;
-
         private List<TargetDrone> drones;
 
+        /// <remarks>
+        ///     This method removes the target drones safely from memory.
+        /// </remarks>
         private void OnDestroy()
         {
             foreach (TargetDrone drone in drones)

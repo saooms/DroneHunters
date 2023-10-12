@@ -8,16 +8,29 @@ using System.IO;
 
 namespace API
 {
-    public class DataReceiver // maybe use different name
+    public class DataReceiver
     {
         private Timer stubTimer;
         private string stubSource;
 
+        /// <param name="source">
+        ///     Path to a JSON file with flight path data.
+        /// </param>
         public DataReceiver(string source)
         {
             stubSource = source;
         }
 
+        /// <summary>
+        ///     Starts the process of receiving data.
+        /// </summary>
+        /// <remarks>
+        ///     This process is a stub to simulate the real world implementation.
+        /// </remarks>
+        ///
+        /// <param name="callback">
+        ///     A method that will get called when data is received.
+        /// </param>
         public void StartReceiveData(Action<Coordinate> callback)
         {
             StopReceiveData();
