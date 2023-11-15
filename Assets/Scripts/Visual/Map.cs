@@ -9,9 +9,6 @@ namespace Visual
     {
         public static Map activeMap; // sneaky sneaky
 
-
-        Vector2 _mapOffset = Vector2.zero;
-
         [SerializeField] private Transform mapChunkPrefab;
         [SerializeField] private DroneMarker hunterDronePrefab;
         [SerializeField] private DroneMarker targetDronePrefab;
@@ -23,15 +20,7 @@ namespace Visual
         private int zoom = 1;
 
         private const int planeScale = 10;
-        private Vector2 mapOffset {
-            get => _mapOffset;
-            
-            set 
-            {
-                _mapOffset.x = value.x % Mathf.Pow(2, zoom);
-                _mapOffset.y = value.y % Mathf.Pow(2, zoom);
-            }
-        }
+        private Vector2 mapOffset = Vector2.zero;
 
         private void Awake()
         {
@@ -79,10 +68,7 @@ namespace Visual
 
             Texture2D tex = new Texture2D(10, 10);
 
-            //Debug.Log(x + (int)mapOffset.x);
-            //Debug.Log(mapHeight - y - 1 + (int)mapOffset.y);
-
-            byte[] mapImage =  await API.Map.GetMapSegment(x + (int)mapOffset.x, mapHeight - y - 1 + (int)mapOffset.y, z);
+            byte[] mapImage =  await API.Map.GetMapSegment(CalculateFloppyCoordinates(x,y,z));
             if (mapImage != null)
             {
                 tex?.LoadImage(mapImage);
@@ -90,6 +76,11 @@ namespace Visual
 
             Renderer panel = Instantiate(mapChunkPrefab, relativePosition + offset, Quaternion.Euler(0,180,0), mapHolder).GetComponent<Renderer>();
             panel.material.mainTexture = tex;
+        }
+
+        private Vector3 CalculateFloppyCoordinates(int x, int y, int z)
+        {
+            return new Vector3( Mathf.Abs((x + (int)mapOffset.x) % Mathf.Pow(2, zoom)), Mathf.Abs((mapHeight - y - 1 + (int)mapOffset.y) % Mathf.Pow(2, zoom)), z);
         }
 
         public void OnInteraction()
@@ -105,12 +96,11 @@ namespace Visual
             }
 
             // middle mouse button click
-            if (Input.GetMouseButtonDown(2))
+            if (Input.GetMouseButton(2))
             {
-                Debug.Log(Input.GetAxis("Mouse X"));
-                Debug.Log(Input.GetAxis("Mouse Y"));
-
-                mapOffset = mapOffset + new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+                mapOffset += new Vector2(Input.GetAxis("Mouse X") * 0.2f, Input.GetAxis("Mouse Y") * 0.2f);
+                
+                Debug.Log(mapOffset);
 
                 UpdateMap();
             }
