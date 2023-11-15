@@ -13,6 +13,7 @@ namespace API
         public static async Task<byte[]> GetMapSegment(Vector3 coordinate) {
             using (var client = new HttpClient())
             {
+                Debug.Log(coordinate);
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion");
                 client.DefaultRequestHeaders.Add("Accept", "*/*");
                 client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");

@@ -9,6 +9,8 @@ namespace Visual
     {
         public static Map activeMap; // sneaky sneaky
 
+        private Vector2 _mapOffset = Vector2.zero;
+        
         [SerializeField] private Transform mapChunkPrefab;
         [SerializeField] private DroneMarker hunterDronePrefab;
         [SerializeField] private DroneMarker targetDronePrefab;
@@ -20,7 +22,16 @@ namespace Visual
         private int zoom = 1;
 
         private const int planeScale = 10;
-        private Vector2 mapOffset = Vector2.zero;
+        private Vector2 mapOffset
+        {
+            get => _mapOffset;
+
+            set
+            {
+                _mapOffset.x = value.x % Mathf.Pow(2, zoom);
+                _mapOffset.y = value.y % Mathf.Pow(2, zoom);
+            }
+        }
 
         private void Awake()
         {
@@ -68,7 +79,7 @@ namespace Visual
 
             Texture2D tex = new Texture2D(10, 10);
 
-            byte[] mapImage =  await API.Map.GetMapSegment(CalculateFloppyCoordinates(x,y,z));
+            byte[] mapImage =  await API.Map.GetMapSegment(CalculateSlippyCoordinates(x,y,z));
             if (mapImage != null)
             {
                 tex?.LoadImage(mapImage);
@@ -78,9 +89,9 @@ namespace Visual
             panel.material.mainTexture = tex;
         }
 
-        private Vector3 CalculateFloppyCoordinates(int x, int y, int z)
+        private Vector3 CalculateSlippyCoordinates(int x, int y, int z)
         {
-            return new Vector3( Mathf.Abs((x + (int)mapOffset.x) % Mathf.Pow(2, zoom)), Mathf.Abs((mapHeight - y - 1 + (int)mapOffset.y) % Mathf.Pow(2, zoom)), z);
+            return new Vector3( Mathf.Abs((x + (int)mapOffset.x + 2 * (zoom-2)) % Mathf.Pow(2, zoom)), Mathf.Abs((zoom*2 - 1 - y + (int)mapOffset.y + 2 * (zoom-2)) % Mathf.Pow(2, zoom)), z);
         }
 
         public void OnInteraction()
@@ -98,11 +109,14 @@ namespace Visual
             // middle mouse button click
             if (Input.GetMouseButton(2))
             {
-                mapOffset += new Vector2(Input.GetAxis("Mouse X") * 0.2f, Input.GetAxis("Mouse Y") * 0.2f);
-                
-                Debug.Log(mapOffset);
+                Vector2 newMapOffset = mapOffset + new Vector2(Input.GetAxis("Mouse X") * 0.05f, Input.GetAxis("Mouse Y") * 0.1f);
 
-                UpdateMap();
+                bool mapShift = (int)newMapOffset.magnitude != (int)mapOffset.magnitude;
+
+                mapOffset = newMapOffset;
+
+                if (mapShift)
+                    UpdateMap();
             }
 
             // scroll
