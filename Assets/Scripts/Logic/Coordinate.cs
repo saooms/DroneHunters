@@ -10,33 +10,47 @@ namespace Logic
     public class Coordinate
     {
         [SerializeField] 
-        private Vector3 _worldPosition;
+        private Vector3 _gamePosition;
 
-        public Vector3 worldPosition { get => _worldPosition; }
-        public Vector3 gamePosition {
-            get {
-                return WorldPositionToGamePosition(_worldPosition);
+        public Vector3 gamePosition => _gamePosition;
+        public Vector3 worldPosition
+        {
+            get
+            {
+                return WorldPositionToGamePosition(_gamePosition);
             }
         }
 
         public Coordinate(int x = 0, int y = 1, int z = 0, bool isWorldPosition = true)
         {
             if (isWorldPosition)
-                _worldPosition = new Vector3(x, y, z);
+                _gamePosition = GamePositionToWorldPosition(new Vector3(x, y, z));
             else
-                _worldPosition = GamePositionToWorldPosition(new Vector3(x, y, z));
+                _gamePosition = new Vector3(x % y, y, z % y);
         }
 
-        public static Vector2 GamePositionToWorldPosition(Vector3 gamePosition)
+        public static Vector3 GamePositionToWorldPosition(Vector3 gamePosition)
         {
-            // Implement convertion formula: gamePosition => worldPosition
-            return gamePosition;
+            Vector3 p = new Vector3();
+            float n = (float)(Mathf.PI - ((2.0 * Mathf.PI * gamePosition.z) / Mathf.Pow(2, gamePosition.y)));
+
+            p.x = (float)((gamePosition.x / Mathf.Pow(2, gamePosition.y) * 360.0) - 180.0);
+            p.z = (float)(180.0 / Mathf.PI * Mathf.Atan((Mathf.Exp(n) - Mathf.Exp(-n)) / 2f));
+            p.y = gamePosition.y;
+
+            return p;
         }
 
-        public static Vector2 WorldPositionToGamePosition(Vector3 worldPosition)
+        public static Vector3 WorldPositionToGamePosition(Vector3 worldPosition)
         {
-            // Implement convertion formula: worldPosition => gamePosition
-            return worldPosition;
+            Vector3 p = new Vector3();
+
+            p.x = (float)((worldPosition.x + 180.0) / 360.0 * (1 << (int)worldPosition.y));
+            p.z = (float)((1.0 - Math.Log(Math.Tan(worldPosition.z * Math.PI / 180.0) + 
+                1.0 / Math.Cos(worldPosition.z * Math.PI / 180.0)) / Math.PI) / 2.0 * (1 << (int)worldPosition.y));
+            p.y = worldPosition.y;
+
+            return p;
         }
 
     }

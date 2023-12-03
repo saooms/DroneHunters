@@ -20,18 +20,10 @@ namespace Visual
         [SerializeField] private int mapHeight;
         
         private int zoom = 1;
+        private Vector3 dragOrigin = Vector2.zero;
+        private Dictionary<Vector2, GameObject> panels = new Dictionary<Vector2, GameObject>();
 
         private const int planeScale = 10;
-        private Vector2 mapOffset
-        {
-            get => _mapOffset;
-
-            set
-            {
-                _mapOffset.x = value.x % Mathf.Pow(2, zoom);
-                _mapOffset.y = value.y % Mathf.Pow(2, zoom);
-            }
-        }
 
         private void Awake()
         {
@@ -50,6 +42,13 @@ namespace Visual
                 return;
 
             this.zoom = Mathf.Clamp(zoom, 1, 13);
+
+            foreach (GameObject child in panels.Values)
+            {
+                Destroy(child);
+            }
+            panels.Clear();
+
             UpdateMap();
         }
 
@@ -58,28 +57,31 @@ namespace Visual
         /// </summary>
         private void UpdateMap()
         {
-            foreach (Transform child in mapHolder)
-            {
-                Destroy(child.gameObject);
-            }
+            Vector3 panelsPos = GamePostionToMapPanel(Camera.main.transform.position);
 
             for (int x = 0; x < mapWidth; x++)
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    LoadChunk(x, y, zoom);
+                    LoadChunk(panelsPos + new Vector3(x, y, 0));
                 }
             }
+
         }
 
-        private async void LoadChunk(int x, int y, int z)
+        private async void LoadChunk(Vector3 position)
         {
-            Vector3 relativePosition = new Vector3(x - mapWidth * .5f, 0, y - mapHeight * .5f) * planeScale;
+            if (panels.ContainsKey(position))
+                return;
+
+            panels.Add(position, null);
+
+            Vector3 relativePosition = new Vector3(position.x - mapWidth * .5f, 0, position.y - mapHeight * .5f) * planeScale;
             Vector3 offset = new Vector3(planeScale * .5f, 0, planeScale * .5f);
 
             Texture2D tex = new Texture2D(10, 10);
 
-            byte[] mapImage =  await API.Map.GetMapSegment(CalculateSlippyCoordinates(x,y,z));
+            byte[] mapImage =  await API.Map.GetMapSegment(CalculateSlippyCoordinates(position));
             if (mapImage != null)
             {
                 tex?.LoadImage(mapImage);
@@ -87,11 +89,12 @@ namespace Visual
 
             Renderer panel = Instantiate(mapChunkPrefab, relativePosition + offset, Quaternion.Euler(0,180,0), mapHolder).GetComponent<Renderer>();
             panel.material.mainTexture = tex;
+            panels[position] = panel.gameObject;
         }
 
-        private Vector3 CalculateSlippyCoordinates(int x, int y, int z)
+        private Vector3 CalculateSlippyCoordinates(Vector3 position)
         {
-            return new Vector3( Mathf.Abs((x + (int)mapOffset.x + 2 * (zoom-2)) % Mathf.Pow(2, zoom)), Mathf.Abs((zoom*2 - 1 - y + (int)mapOffset.y + 2 * (zoom-2)) % Mathf.Pow(2, zoom)), z);
+            return new Vector3( Mathf.Abs((position.x) % Mathf.Pow(2, zoom)), Mathf.Abs((zoom*2 - 1 - position.y) % Mathf.Pow(2, zoom)), position.z);
         }
 
         public void OnInteraction()
@@ -105,23 +108,42 @@ namespace Visual
                 if (Physics.Raycast(ray, out hit))
                     PlaceMarker(hit.point, hunterDronePrefab.transform);
             }
-
+            
             // middle mouse button click
+            if (Input.GetMouseButtonDown(2))
+            {
+                dragOrigin = Input.mousePosition; 
+            }
+
+            // middle mouse button click helddown
             if (Input.GetMouseButton(2))
             {
-                Vector2 newMapOffset = mapOffset + new Vector2(Input.GetAxis("Mouse X") * 0.05f, Input.GetAxis("Mouse Y") * 0.1f);
+                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
+                Vector3 move = new Vector3(pos.x * 0.2f, 0, pos.y * 0.2f);
+                Camera.main.transform.Translate(move, Space.World);
 
-                bool mapShift = (int)newMapOffset.magnitude != (int)mapOffset.magnitude;
-
-                mapOffset = newMapOffset;
-
-                if (mapShift)
-                    UpdateMap();
+                UpdateMap();
             }
 
             // scroll
             if (Input.mouseScrollDelta.y != 0)
                 ChangeZoom(zoom + (int)Input.mouseScrollDelta.y);
+        }
+
+        public Vector3 GamePostionToMapPanel(Vector3 position)
+        {
+            return new Vector3( Mathf.Floor(position.x / planeScale), Mathf.Floor(position.z / planeScale), zoom);
+        }
+
+        public Coordinate GameToWorldPosition(Vector3 position)
+        {
+            Vector3 p = new Vector3();
+            float n = (float)(Mathf.PI - ((2.0 * Mathf.PI * position.z) / Mathf.Pow(2, zoom)));
+
+            p.x = (float)((position.x / Mathf.Pow(2, zoom) * 360.0) - 180.0);
+            p.y = (float)(180.0 / Mathf.PI * Mathf.Atan(Mathf.Exp(n) - Mathf.Exp(-n) / 2f));
+
+            return new Coordinate();
         }
 
         public void PlaceMarker(Vector3 position, Transform markerPrefab)
