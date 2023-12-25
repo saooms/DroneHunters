@@ -14,6 +14,11 @@ namespace Logic
             this.position = fromGamePosition ? GamePostionToMapPanel(position) : ValidChunkPosition(position);
         }
 
+        public async byte[] GetMapSegment()
+        {
+            return await API.Map.GetMapSegment(position);
+        }
+
         public static Vector3 GamePostionToMapPanel(Vector3 position)
         {
             return new Vector3(
