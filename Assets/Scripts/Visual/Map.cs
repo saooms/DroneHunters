@@ -23,7 +23,7 @@ namespace Visual
         private Vector3 dragOrigin = Vector2.zero;
         private Dictionary<Vector2, GameObject> panels = new Dictionary<Vector2, GameObject>();
 
-        private const int planeScale = 10;
+        public static int planeScale = 10;
 
         private void Awake()
         {
@@ -63,21 +63,23 @@ namespace Visual
             {
                 for (int y = 0; y < mapHeight; y++)
                 {
-                    LoadChunk(panelsPos + new Vector3(x, y, 0));
+                    LoadChunk(panelsPos + new Vector3(x, y, zoom));
                 }
             }
-
         }
 
         private async void LoadChunk(Vector3 position)
         {
+            //position = new Vector3(position.x Mathf.Pow(2, zoom));
+            Debug.Log(position);
+
             if (panels.ContainsKey(position))
                 return;
 
             panels.Add(position, null);
 
-            Vector3 relativePosition = new Vector3(position.x - mapWidth * .5f, 0, position.y - mapHeight * .5f) * planeScale;
-            Vector3 offset = new Vector3(planeScale * .5f, 0, planeScale * .5f);
+            Vector3 relativePosition = new Vector3(position.x, 0, position.y) * planeScale;
+            Vector3 offset = new Vector3(.5f * planeScale, 0, .5f * planeScale);
 
             Texture2D tex = new Texture2D(10, 10);
 
@@ -94,7 +96,7 @@ namespace Visual
 
         private Vector3 CalculateSlippyCoordinates(Vector3 position)
         {
-            return new Vector3( Mathf.Abs((position.x) % Mathf.Pow(2, zoom)), Mathf.Abs((zoom*2 - 1 - position.y) % Mathf.Pow(2, zoom)), position.z);
+            return position;
         }
 
         public void OnInteraction()
@@ -106,7 +108,15 @@ namespace Visual
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out hit))
+                {
                     PlaceMarker(hit.point, hunterDronePrefab.transform);
+
+                    Vector3 worldPos = new Vector3(Mathf.Abs(hit.point.x) / planeScale, zoom, hit.point.z / planeScale);
+                    Debug.Log(worldPos);
+                    Vector3 gamePos = Coordinate.MapPositionToWorldPosition(worldPos);
+                    Debug.Log(gamePos);
+                    Debug.Log(Coordinate.WorldPositionToMapPosition(gamePos));
+                }
             }
             
             // middle mouse button click
@@ -129,21 +139,12 @@ namespace Visual
             if (Input.mouseScrollDelta.y != 0)
                 ChangeZoom(zoom + (int)Input.mouseScrollDelta.y);
         }
-
         public Vector3 GamePostionToMapPanel(Vector3 position)
         {
-            return new Vector3( Mathf.Floor(position.x / planeScale), Mathf.Floor(position.z / planeScale), zoom);
-        }
-
-        public Coordinate GameToWorldPosition(Vector3 position)
-        {
-            Vector3 p = new Vector3();
-            float n = (float)(Mathf.PI - ((2.0 * Mathf.PI * position.z) / Mathf.Pow(2, zoom)));
-
-            p.x = (float)((position.x / Mathf.Pow(2, zoom) * 360.0) - 180.0);
-            p.y = (float)(180.0 / Mathf.PI * Mathf.Atan(Mathf.Exp(n) - Mathf.Exp(-n) / 2f));
-
-            return new Coordinate();
+            return new Vector3(
+                Mathf.Clamp(Mathf.Floor(position.x / planeScale), 0, Mathf.Pow(2, position.z)),
+                Mathf.Clamp(Mathf.Floor(position.z / planeScale), 0, Mathf.Pow(2, position.z)),
+                position.z);
         }
 
         public void PlaceMarker(Vector3 position, Transform markerPrefab)
@@ -160,6 +161,16 @@ namespace Visual
             marker.AllocateDrone(drone);
 
             return marker;
+        }
+
+        public static Vector3 MapPositionToGamePosition()
+        {
+            return new();
+        }
+
+        public static Vector3 GamePositionToMapPosition(Vector3 gamePosition)
+        {
+            return new();
         }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Visual\Map.cs" />
     <Compile Include="Assets\Scripts\API\DataReceiver.cs" />
     <Compile Include="Assets\Scripts\Logic\TargetDrone.cs" />
+    <Compile Include="Assets\Scripts\Logic\MapChunk.cs" />
     <Compile Include="Assets\Scripts\Visual\InteractionManager.cs" />
     <Compile Include="Assets\Scripts\Visual\IInteractable.cs" />
     <Compile Include="Assets\Scripts\Visual\DroneMarker.cs" />

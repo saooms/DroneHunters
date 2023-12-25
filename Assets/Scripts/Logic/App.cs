@@ -27,12 +27,6 @@ namespace Logic
             {
                 new TargetDrone(new DataReceiver(@"assets\data\stub.json"))
             };
-
-            Vector3 worldPos = new Vector3(51.77385f, 2, 9.885193f);
-            Debug.Log(worldPos);
-            Vector3 gamePos = Coordinate.WorldPositionToGamePosition(worldPos);
-            Debug.Log(gamePos);
-            Debug.Log(Coordinate.GamePositionToWorldPosition(gamePos));
         }
     }
 }

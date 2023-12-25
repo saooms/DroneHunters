@@ -16,13 +16,13 @@ namespace Visual
 
         private void Update()
         {
-            if (drone != null && transform.position != drone.position.gamePosition)
+            if (drone != null && transform.position != drone.position.mapPosition)
                 UpdatePosition(drone?.position);
         }
 
         public void UpdatePosition(Coordinate coordinate)
         {
-            transform.position = coordinate.gamePosition;
+            transform.position = coordinate.mapPosition;
         }
     }
 }

@@ -358,6 +358,7 @@
 "Assets/Scripts/Logic/Coordinate.cs"
 "Assets/Scripts/Logic/Drone.cs"
 "Assets/Scripts/Logic/HunterDrone.cs"
+"Assets/Scripts/Logic/MapChunk.cs"
 "Assets/Scripts/Logic/TargetDrone.cs"
 "Assets/Scripts/Visual/DroneMarker.cs"
 "Assets/Scripts/Visual/IInteractable.cs"
