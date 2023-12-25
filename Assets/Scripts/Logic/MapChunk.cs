@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Visual;
 
@@ -14,7 +15,7 @@ namespace Logic
             this.position = fromGamePosition ? GamePostionToMapPanel(position) : ValidChunkPosition(position);
         }
 
-        public async byte[] GetMapSegment()
+        public async Task<byte[]> GetMapSegment()
         {
             return await API.Map.GetMapSegment(position);
         }
