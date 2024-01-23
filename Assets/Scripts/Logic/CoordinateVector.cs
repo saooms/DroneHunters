@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static System.Math;
 
 namespace Logic
 {
@@ -24,5 +25,29 @@ namespace Logic
 
         public static implicit operator CoordinateVector(Vector3 position) => new CoordinateVector(position.x, position.y, position.z);
         public static explicit operator Vector3(CoordinateVector position) => new Vector3((float)position.x, (float)position.y, (float)position.z);
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            CoordinateVector other = (CoordinateVector)obj;
+            return IsWithinErrorMargin(x, other.x) && IsWithinErrorMargin(y, other.y) && IsWithinErrorMargin(z, other.z);
+        }
+
+        private bool IsWithinErrorMargin(double a, double b)
+        {
+            return Abs(a - b) < 0.000000000000001;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(x, y, z);
+        }
+
+        public override string ToString()
+        {
+            return $"{Round(x, 13)}, {Round(z, 13)}";
+        }
     }
 }

@@ -1,0 +1,4 @@
+{
+	"name": "ScriptsAssembly",
+	"references": ["Unity.TextMeshPro", "Unity.TextMeshPro.Editor"]
+}

@@ -23,12 +23,12 @@ namespace Visual
         private readonly Dictionary<Vector3, GameObject> _panels = new Dictionary<Vector3, GameObject>();
 
         public static int PlaneScale => 10;
-        public static int Zoom = 18;
+        public static int Zoom = 1;
 
         private void Awake()
         {
             ActiveMap = this;
-            
+            Zoom = 18;
             Focus(new Coordinate(new Vector3(51.9171581691157f, 1, 4.483959781570087f)));
         }
 
@@ -91,8 +91,8 @@ namespace Visual
 
         public void OnInteraction()
         {
-            // left mouse button click
-            if (Input.GetMouseButtonDown(0))
+            // right mouse button click
+            if (Input.GetMouseButtonDown(1))
             {
                 //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -106,16 +106,16 @@ namespace Visual
             }
             
             // middle mouse button click
-            if (Input.GetMouseButtonDown(2))
+            if (Input.GetMouseButtonDown(0))
             {
                 _dragOrigin = Input.mousePosition; 
             }
 
             // middle mouse button click held down
-            if (Input.GetMouseButton(2))
+            if (Input.GetMouseButton(0))
             {
                 Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - _dragOrigin);
-                Vector3 move = new Vector3(pos.x, 0, pos.y) * 0.2f;
+                Vector3 move = new Vector3(-pos.x, 0, -pos.y) * 0.2f;
                 Camera.main.transform.Translate(move, Space.World);
 
                 UpdateMap();

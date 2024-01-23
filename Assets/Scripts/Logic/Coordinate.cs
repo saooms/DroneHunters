@@ -89,9 +89,22 @@ namespace Logic
             return distance; // in meters
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            return worldPosition.Equals(((Coordinate)obj).worldPosition);
+        }
+
+        public override int GetHashCode()
+        {
+            return worldPosition.GetHashCode();
+        }
+
         public override string ToString()
         {
-            return $"{Math.Round(worldPosition.x, 13)}, {Math.Round(worldPosition.z, 13)}";
+            return worldPosition.ToString();
         }
     }
 }
