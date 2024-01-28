@@ -23,8 +23,8 @@ namespace Logic
         private Coordinate CurrentPosition()
         {
             if (_flightPath.Count <= 0) return null;
-            DateTime lastKey = CurrentTime();
 
+            DateTime lastKey = CurrentTime();
             return lastKey == DateTime.MinValue ? null : _flightPath[lastKey];
         }
         
@@ -34,7 +34,8 @@ namespace Logic
             this.type = type;
 
             _flightPath = new Dictionary<DateTime, Coordinate>();
-            AddToFlightPath(position);
+            if (position != null)
+                AddToFlightPath(position);
         }
 
         protected DateTime CurrentTime()
@@ -51,6 +52,7 @@ namespace Logic
         protected void AddToFlightPath(Coordinate coordinate)
         {
             DateTime now = DateTime.Now;
+
             if (_flightPath.Count == 0)
                 _flightPath.Add(now, coordinate);
             else

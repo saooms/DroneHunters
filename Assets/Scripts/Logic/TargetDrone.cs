@@ -29,7 +29,7 @@ namespace Logic
             Initialize(receiver);
         }
 
-        public TargetDrone(IDataSource source, string identifier = "Targetdrone") : base(new Coordinate(Vector3.one), identifier, Type.target)
+        public TargetDrone(IDataSource source, string identifier = "Targetdrone") : base(null, identifier, Type.target)
         {
             Initialize(source);
         }
@@ -37,7 +37,6 @@ namespace Logic
         private void Initialize(IDataSource source)
         {
             SetDataSource(source);
-            Visual.Map.ActiveMap.PlaceDroneMarker(this, MapMarker.MarkerType.Target);
         }
 
         public IDataSource SetDataSource(IDataSource source)
@@ -46,7 +45,7 @@ namespace Logic
             IDataSource tmp = _source;
             
             _source = source;
-            source.StartReceiveData(OnReceiveData);
+            source?.StartReceiveData(OnReceiveData);
 
             return tmp;
         }
@@ -54,7 +53,9 @@ namespace Logic
         private void OnReceiveData(Coordinate coordinate) 
         {
             AddToFlightPath(coordinate);
-            OnUpdate();
+            
+            if (OnUpdate != null)
+                OnUpdate();
         }
     }
 }

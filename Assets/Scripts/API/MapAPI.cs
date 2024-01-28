@@ -24,7 +24,6 @@ namespace API
             byte[] content = await response.Content.ReadAsByteArrayAsync();
 
             return content;
-
         }
     }
 }

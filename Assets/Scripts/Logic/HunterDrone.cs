@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using static System.Math;
-
+using UnityEngine;
 
 namespace Logic
 {
@@ -21,7 +21,8 @@ namespace Logic
                 return;
 
             _target = target;
-
+            _wayPoints = new List<Coordinate>();
+            
             target.OnUpdate += OnTargetUpdate;
         }
 
@@ -30,7 +31,8 @@ namespace Logic
             double targetSpeed = _target.Speed;
             double targetHeading = _target.Heading;
             if (Abs(targetHeading - _previousTargetHeading) > 0.01 ||
-                Abs(targetSpeed - _previousTargetSpeed) > 0.1)
+                Abs(targetSpeed - _previousTargetSpeed) > 0.1 || 
+                _wayPoints.Count <= 0) 
             {
                 _wayPoints = GetWayPoints();
             }
@@ -120,7 +122,7 @@ namespace Logic
                 _wayPoints = GetWayPoints();
                 speed = Min(_target.Speed, MaxSpeed);
             }
-            else if (Coordinate.CalculateDistanceBetween2Coordinates(Position, _wayPoints[_currentWaypoint]) < 2)
+            else if (Coordinate.CalculateDistanceBetween2Coordinates(Position, _wayPoints[_currentWaypoint]) < 3)
                 _currentWaypoint = Min(_currentWaypoint + 1, _wayPoints.Count - 1);
             
             double heading = CalculateHeadingToCoordinate(_wayPoints[_currentWaypoint]) * PI / 180; // convert to radians
