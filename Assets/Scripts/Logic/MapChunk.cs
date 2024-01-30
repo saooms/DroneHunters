@@ -14,7 +14,7 @@ namespace Logic
 
         public MapChunk(Vector3 position, bool fromGamePosition = false)
         {
-            this._position = fromGamePosition ? GamePositionToMapPanel(position) : ValidChunkPosition(position);
+            _position = fromGamePosition ? GamePositionToMapPanel(position) : ValidChunkPosition(position);
         }
 
         public async Task<byte[]> GetMapSegment()
