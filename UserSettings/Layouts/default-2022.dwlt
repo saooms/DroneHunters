@@ -19,12 +19,38 @@ MonoBehaviour:
     width: 2560
     height: 1357
   m_ShowMode: 4
-  m_Title: Console
-  m_RootView: {fileID: 2}
+  m_Title: Test Runner
+  m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: TestRunnerWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 1657
+    y: 0
+    width: 479
+    height: 551
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
+  m_ActualView: {fileID: 16}
+  m_Panes:
+  - {fileID: 16}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -37,9 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 3}
-  - {fileID: 5}
   - {fileID: 4}
+  - {fileID: 6}
+  - {fileID: 5}
   m_Position:
     serializedVersion: 2
     x: 0
@@ -52,7 +78,7 @@ MonoBehaviour:
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &3
+--- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,7 +100,7 @@ MonoBehaviour:
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &4
+--- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,31 +121,6 @@ MonoBehaviour:
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &5
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Children:
-  - {fileID: 6}
-  - {fileID: 14}
-  m_Position:
-    serializedVersion: 2
-    x: 0
-    y: 30
-    width: 2560
-    height: 1307
-  m_MinSize: {x: 400, y: 100}
-  m_MaxSize: {x: 32384, y: 16192}
-  vertical: 0
-  controlID: 129
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,17 +135,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 7}
-  - {fileID: 11}
+  - {fileID: 15}
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 2136
+    y: 30
+    width: 2560
     height: 1307
-  m_MinSize: {x: 300, y: 100}
-  m_MaxSize: {x: 24288, y: 16192}
-  vertical: 1
-  controlID: 130
+  m_MinSize: {x: 400, y: 100}
+  m_MaxSize: {x: 32384, y: 16192}
+  vertical: 0
+  controlID: 800
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,19 +160,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 8}
-  - {fileID: 9}
-  - {fileID: 10}
+  - {fileID: 12}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
     width: 2136
-    height: 998
+    height: 1307
+  m_MinSize: {x: 300, y: 100}
+  m_MaxSize: {x: 24288, y: 16192}
+  vertical: 1
+  controlID: 801
+--- !u!114 &8
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 9}
+  - {fileID: 10}
+  - {fileID: 11}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 2136
+    height: 756
   m_MinSize: {x: 300, y: 50}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 131
---- !u!114 &8
+  controlID: 802
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,15 +215,15 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 280
-    height: 998
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 16}
+    height: 756
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 18}
   m_Panes:
-  - {fileID: 16}
+  - {fileID: 18}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &9
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,15 +241,15 @@ MonoBehaviour:
     x: 280
     y: 0
     width: 499
-    height: 998
+    height: 756
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 17}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 17}
+  - {fileID: 19}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &10
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,15 +267,15 @@ MonoBehaviour:
     x: 779
     y: 0
     width: 1357
-    height: 998
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 15}
+    height: 756
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 17}
   m_Panes:
-  - {fileID: 15}
+  - {fileID: 17}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &11
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,19 +288,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 12}
   - {fileID: 13}
+  - {fileID: 14}
+  - {fileID: 2}
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 998
+    y: 756
     width: 2136
-    height: 309
-  m_MinSize: {x: 200, y: 50}
-  m_MaxSize: {x: 16192, y: 8096}
+    height: 551
+  m_MinSize: {x: 300, y: 50}
+  m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 210
---- !u!114 &12
+  controlID: 2170
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,15 +319,15 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 874
-    height: 309
+    height: 551
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 18}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &13
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,16 +344,16 @@ MonoBehaviour:
     serializedVersion: 2
     x: 874
     y: 0
-    width: 1262
-    height: 309
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+    width: 783
+    height: 551
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 19}
+  - {fileID: 21}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &14
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,12 +374,685 @@ MonoBehaviour:
     height: 1307
   m_MinSize: {x: 276, y: 71}
   m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 20}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 20}
+  - {fileID: 22}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &15
+--- !u!114 &16
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Test Runner
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 1657
+    y: 829
+    width: 477
+    height: 530
+  m_SerializedDataModeController:
+    m_DataMode: 0
+    m_PreferredDataMode: 0
+    m_SupportedDataModes: 
+    isAutomatic: 1
+  m_ViewDataDictionary: {fileID: 0}
+  m_OverlayCanvas:
+    m_LastAppliedPresetName: Default
+    m_SaveData: []
+    m_OverlaysVisible: 1
+  m_Spl:
+    ID: 2186
+    splitterInitialOffset: 152
+    currentActiveSplitter: -1
+    realSizes:
+    - 169
+    - 291
+    relativeSizes:
+    - 0.36697248
+    - 0.63302755
+    minSizes:
+    - 32
+    - 32
+    maxSizes:
+    - 0
+    - 0
+    lastTotalSize: 460
+    splitSize: 6
+    xOffset: 0
+    m_Version: 1
+    oldRealSizes: 
+    oldMinSizes: 
+    oldMaxSizes: 
+    oldSplitSize: 0
+  m_TestTypeToolbarIndex: 1
+  m_PlayModeTestListGUI:
+    m_Window: {fileID: 16}
+    m_NewResultList:
+    - id: 1390
+      uniqueId: '[drone_hunters][suite]'
+      name: drone_hunters
+      fullName: drone_hunters
+      resultStatus: 1
+      duration: 3.299926
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1398
+      uniqueId: '[PlayMode.dll][suite]'
+      name: PlayMode.dll
+      fullName: C:/Users/saoom/source/repos/DroneHunters/Library/ScriptAssemblies/PlayMode.dll
+      resultStatus: 1
+      duration: 3.2888548
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1390
+      parentUniqueId: '[drone_hunters][suite]'
+    - id: 1399
+      uniqueId: PlayMode.dll/[PlayMode][PlayModeTest][suite]
+      name: PlayModeTest
+      fullName: PlayModeTest
+      resultStatus: 1
+      duration: 3.2859335
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1398
+      parentUniqueId: '[PlayMode.dll][suite]'
+    - id: 1391
+      uniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.DataReceiverTests][suite]
+      name: DataReceiverTests
+      fullName: PlayModeTest.DataReceiverTests
+      resultStatus: 1
+      duration: 1.0399987
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1399
+      parentUniqueId: PlayMode.dll/[PlayMode][PlayModeTest][suite]
+    - id: 1392
+      uniqueId: PlayMode.dll/PlayModeTest/DataReceiverTests/[PlayMode][PlayModeTest.DataReceiverTests.ReceiveDataOverTime]
+      name: ReceiveDataOverTime
+      fullName: PlayModeTest.DataReceiverTests.ReceiveDataOverTime
+      resultStatus: 1
+      duration: 1.0262598
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1391
+      parentUniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.DataReceiverTests][suite]
+    - id: 1393
+      uniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.HunterDroneTests][suite]
+      name: HunterDroneTests
+      fullName: PlayModeTest.HunterDroneTests
+      resultStatus: 1
+      duration: 1.72915
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1399
+      parentUniqueId: PlayMode.dll/[PlayMode][PlayModeTest][suite]
+    - id: 1395
+      uniqueId: PlayMode.dll/PlayModeTest/HunterDroneTests/[PlayMode][PlayModeTest.HunterDroneTests.ApproachTargetTimePrediction]
+      name: ApproachTargetTimePrediction
+      fullName: PlayModeTest.HunterDroneTests.ApproachTargetTimePrediction
+      resultStatus: 1
+      duration: 0.5130723
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1393
+      parentUniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.HunterDroneTests][suite]
+    - id: 1394
+      uniqueId: PlayMode.dll/PlayModeTest/HunterDroneTests/[PlayMode][PlayModeTest.HunterDroneTests.MovingLocationPrediction]
+      name: MovingLocationPrediction
+      fullName: PlayModeTest.HunterDroneTests.MovingLocationPrediction
+      resultStatus: 1
+      duration: 1.210444
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1393
+      parentUniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.HunterDroneTests][suite]
+    - id: 1396
+      uniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.TargetDroneTests][suite]
+      name: TargetDroneTests
+      fullName: PlayModeTest.TargetDroneTests
+      resultStatus: 1
+      duration: 0.5119303
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1399
+      parentUniqueId: PlayMode.dll/[PlayMode][PlayModeTest][suite]
+    - id: 1397
+      uniqueId: PlayMode.dll/PlayModeTest/TargetDroneTests/[PlayMode][PlayModeTest.TargetDroneTests.ReceiveData]
+      name: ReceiveData
+      fullName: PlayModeTest.TargetDroneTests.ReceiveData
+      resultStatus: 1
+      duration: 0.5080547
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1396
+      parentUniqueId: PlayMode.dll/PlayModeTest/[PlayMode][PlayModeTest.TargetDroneTests][suite]
+    m_ResultText: 
+    m_ResultStacktrace: 
+    m_TestListState:
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9f5c62b623b5d8be7863c5229cf14e6cf6a75c7588ae0f77ffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+    m_SelectedOption: 0
+  m_EditModeTestListGUI:
+    m_Window: {fileID: 16}
+    m_NewResultList:
+    - id: 1000
+      uniqueId: '[drone_hunters][suite]'
+      name: drone_hunters
+      fullName: drone_hunters
+      resultStatus: 2
+      duration: 0.0247505
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 
+      parentUniqueId: 
+    - id: 1020
+      uniqueId: '[EditMode.dll][suite]'
+      name: EditMode.dll
+      fullName: C:/Users/saoom/source/repos/DroneHunters/Library/ScriptAssemblies/EditMode.dll
+      resultStatus: 2
+      duration: 0.0099861
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1000
+      parentUniqueId: '[drone_hunters][suite]'
+    - id: 1021
+      uniqueId: EditMode.dll/[EditMode][EditModeTest][suite]
+      name: EditModeTest
+      fullName: EditModeTest
+      resultStatus: 2
+      duration: 0.0081732
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1020
+      parentUniqueId: '[EditMode.dll][suite]'
+    - id: 1006
+      uniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+      name: CoordinateTests
+      fullName: EditModeTest.CoordinateTests
+      resultStatus: 2
+      duration: 0.0041856
+      messages: One or more child tests had errors
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1021
+      parentUniqueId: EditMode.dll/[EditMode][EditModeTest][suite]
+    - id: 1011
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.DistanceBetweenCoordinates]
+      name: DistanceBetweenCoordinates
+      fullName: EditModeTest.CoordinateTests.DistanceBetweenCoordinates
+      resultStatus: 1
+      duration: 0.0001174
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1007
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.GameToMapPosition]
+      name: GameToMapPosition
+      fullName: EditModeTest.CoordinateTests.GameToMapPosition
+      resultStatus: 2
+      duration: 0.0002535
+      messages: "  Expected: <0, 2>\r\n  But was:  <2, 0>\r\n"
+      output: 
+      stacktrace: 'at EditModeTest.CoordinateTests.GameToMapPosition () [0x00017]
+        in C:\Users\saoom\source\repos\DroneHunters\Assets\Tests\EditMode\Logic\CoordinateTests.cs:19
+
+'
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1008
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.MapToGamePosition]
+      name: MapToGamePosition
+      fullName: EditModeTest.CoordinateTests.MapToGamePosition
+      resultStatus: 2
+      duration: 0.0002461
+      messages: "  Expected: less than or equal to 9.9999999999999995E-08d\r\n  But
+        was:  69051.546875d\r\n"
+      output: 
+      stacktrace: 'at EditModeTest.CoordinateTests.MapToGamePosition () [0x00025]
+        in C:\Users\saoom\source\repos\DroneHunters\Assets\Tests\EditMode\Logic\CoordinateTests.cs:28
+
+'
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1010
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.MapToWorldPosition]
+      name: MapToWorldPosition
+      fullName: EditModeTest.CoordinateTests.MapToWorldPosition
+      resultStatus: 1
+      duration: 0.0000574
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1012
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.NoDistanceBetweenCoordinates]
+      name: NoDistanceBetweenCoordinates
+      fullName: EditModeTest.CoordinateTests.NoDistanceBetweenCoordinates
+      resultStatus: 1
+      duration: 0.0000553
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1009
+      uniqueId: EditMode.dll/EditModeTest/CoordinateTests/[EditMode][EditModeTest.CoordinateTests.WordToMapPosition]
+      name: WordToMapPosition
+      fullName: EditModeTest.CoordinateTests.WordToMapPosition
+      resultStatus: 1
+      duration: 0.000053
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1006
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.CoordinateTests][suite]
+    - id: 1013
+      uniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.HunterDroneTests][suite]
+      name: HunterDroneTests
+      fullName: EditModeTest.HunterDroneTests
+      resultStatus: 1
+      duration: 0.0061599
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1021
+      parentUniqueId: EditMode.dll/[EditMode][EditModeTest][suite]
+    - id: 1016
+      uniqueId: EditMode.dll/EditModeTest/HunterDroneTests/[EditMode][EditModeTest.HunterDroneTests.LocationBehindPrediction]
+      name: LocationBehindPrediction
+      fullName: EditModeTest.HunterDroneTests.LocationBehindPrediction
+      resultStatus: 1
+      duration: 0.0004963
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.HunterDroneTests][suite]
+    - id: 1014
+      uniqueId: EditMode.dll/EditModeTest/HunterDroneTests/[EditMode][EditModeTest.HunterDroneTests.Position]
+      name: Position
+      fullName: EditModeTest.HunterDroneTests.Position
+      resultStatus: 1
+      duration: 0.0000615
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.HunterDroneTests][suite]
+    - id: 1015
+      uniqueId: EditMode.dll/EditModeTest/HunterDroneTests/[EditMode][EditModeTest.HunterDroneTests.UnMovingLocationPrediction]
+      name: UnMovingLocationPrediction
+      fullName: EditModeTest.HunterDroneTests.UnMovingLocationPrediction
+      resultStatus: 1
+      duration: 0.000293
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1013
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.HunterDroneTests][suite]
+    - id: 1017
+      uniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TargetDroneTests][suite]
+      name: TargetDroneTests
+      fullName: EditModeTest.TargetDroneTests
+      resultStatus: 1
+      duration: 0.0054254
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1021
+      parentUniqueId: EditMode.dll/[EditMode][EditModeTest][suite]
+    - id: 1018
+      uniqueId: EditMode.dll/EditModeTest/TargetDroneTests/[EditMode][EditModeTest.TargetDroneTests.Position]
+      name: Position
+      fullName: EditModeTest.TargetDroneTests.Position
+      resultStatus: 1
+      duration: 0.0001062
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1017
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TargetDroneTests][suite]
+    - id: 1019
+      uniqueId: EditMode.dll/EditModeTest/TargetDroneTests/[EditMode][EditModeTest.TargetDroneTests.UpdateEvent]
+      name: UpdateEvent
+      fullName: EditModeTest.TargetDroneTests.UpdateEvent
+      resultStatus: 1
+      duration: 0.0003716
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1017
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TargetDroneTests][suite]
+    - id: 1001
+      uniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TestDataSourceTests][suite]
+      name: TestDataSourceTests
+      fullName: EditModeTest.TestDataSourceTests
+      resultStatus: 1
+      duration: 0.0054813
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1021
+      parentUniqueId: EditMode.dll/[EditMode][EditModeTest][suite]
+    - id: 1002
+      uniqueId: EditMode.dll/EditModeTest/TestDataSourceTests/[EditMode][EditModeTest.TestDataSourceTests.LoadData]
+      name: LoadData
+      fullName: EditModeTest.TestDataSourceTests.LoadData
+      resultStatus: 1
+      duration: 0.0005199
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TestDataSourceTests][suite]
+    - id: 1005
+      uniqueId: EditMode.dll/EditModeTest/TestDataSourceTests/[EditMode][EditModeTest.TestDataSourceTests.Peek]
+      name: Peek
+      fullName: EditModeTest.TestDataSourceTests.Peek
+      resultStatus: 1
+      duration: 0.000287
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TestDataSourceTests][suite]
+    - id: 1003
+      uniqueId: EditMode.dll/EditModeTest/TestDataSourceTests/[EditMode][EditModeTest.TestDataSourceTests.SendData]
+      name: SendData
+      fullName: EditModeTest.TestDataSourceTests.SendData
+      resultStatus: 1
+      duration: 0.0002809
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TestDataSourceTests][suite]
+    - id: 1004
+      uniqueId: EditMode.dll/EditModeTest/TestDataSourceTests/[EditMode][EditModeTest.TestDataSourceTests.Step]
+      name: Step
+      fullName: EditModeTest.TestDataSourceTests.Step
+      resultStatus: 1
+      duration: 0.0002782
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1001
+      parentUniqueId: EditMode.dll/EditModeTest/[EditMode][EditModeTest.TestDataSourceTests][suite]
+    m_ResultText: "GameToMapPosition (0,000s)\n---\nExpected: <0, 2>\r\n  But was: 
+      <2, 0>\n---\nat EditModeTest.CoordinateTests.GameToMapPosition () [0x00017]
+      in C:\\Users\\saoom\\source\\repos\\DroneHunters\\Assets\\Tests\\EditMode\\Logic\\CoordinateTests.cs:19"
+    m_ResultStacktrace: 'at EditModeTest.CoordinateTests.GameToMapPosition () [0x00017]
+      in C:\Users\saoom\source\repos\DroneHunters\Assets\Tests\EditMode\Logic\CoordinateTests.cs:19
+
+'
+    m_TestListState:
+      scrollPos: {x: 0, y: 60}
+      m_SelectedIDs: 75b5a214
+      m_LastClickedID: 346207605
+      m_ExpandedIDs: a38832a00868f3d47863c522d7dffa40ba4c4f561a0d85684b5ea47cffffff7f
+      m_RenameOverlay:
+        m_UserAcceptedRename: 0
+        m_Name: 
+        m_OriginalName: 
+        m_EditFieldRect:
+          serializedVersion: 2
+          x: 0
+          y: 0
+          width: 0
+          height: 0
+        m_UserData: 0
+        m_IsWaitingForDelay: 0
+        m_IsRenaming: 0
+        m_OriginalEventType: 11
+        m_IsRenamingFilename: 0
+        m_ClientGUIView: {fileID: 0}
+      m_SearchString: 
+    m_TestRunnerUIFilter:
+      PassedHidden: 0
+      FailedHidden: 0
+      NotRunHidden: 0
+      m_SearchString: 
+      selectedCategoryMask: 0
+      availableCategories:
+      - Uncategorized
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,7 +1075,7 @@ MonoBehaviour:
     x: 779
     y: 73
     width: 1355
-    height: 977
+    height: 735
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -392,7 +1092,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1355, y: 956}
+  m_TargetSize: {x: 1355, y: 714}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -409,8 +1109,8 @@ MonoBehaviour:
     vZoomLockedByDefault: 0
     m_HBaseRangeMin: -677.5
     m_HBaseRangeMax: 677.5
-    m_VBaseRangeMin: -478
-    m_VBaseRangeMax: 478
+    m_VBaseRangeMin: -357
+    m_VBaseRangeMax: 357
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -429,9 +1129,9 @@ MonoBehaviour:
       x: 0
       y: 21
       width: 1355
-      height: 956
+      height: 714
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 677.5, y: 478}
+    m_Translation: {x: 677.5, y: 357}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -439,18 +1139,18 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -677.5
-      y: -478
+      y: -357
       width: 1355
-      height: 956
+      height: 714
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 1355, y: 977}
+  m_LastWindowPixelSize: {x: 1355, y: 735}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &16
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -473,7 +1173,7 @@ MonoBehaviour:
     x: 0
     y: 73
     width: 279
-    height: 977
+    height: 735
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -489,7 +1189,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f284ffff
+      m_ExpandedIDs: 32d9ffff8cd9ffff44dbffffc0dbffff3cdcffffb8dcffffccddffff48defffffcdeffffbadfffff82f1ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -505,7 +1205,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 8}
+        m_ClientGUIView: {fileID: 9}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -513,7 +1213,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: 4c969a2b90040154d917609493e03593
---- !u!114 &17
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -536,7 +1236,7 @@ MonoBehaviour:
     x: 280
     y: 73
     width: 497
-    height: 977
+    height: 735
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -919,7 +1619,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.6862348, y: -0.0032759695, z: 0.003090567, w: 0.72736555}
     speed: 2
-    m_Value: {x: -0.6862348, y: 0.0032759695, z: -0.003090567, w: -0.72736555}
+    m_Value: {x: 0.6862351, y: -0.0032759712, z: 0.0030905684, w: 0.7273659}
   m_Size:
     m_Target: 24.726755
     speed: 2
@@ -948,7 +1648,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &18
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -969,9 +1669,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 1071
+    y: 829
     width: 873
-    height: 288
+    height: 530
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -993,7 +1693,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Logic
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -1001,16 +1701,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/Logic
+  - Assets
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\saoom\source\repos\drone_hunters
+  m_LastProjectPath: C:\Users\saoom\source\repos\DroneHunters
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4a6d0000
-    m_LastClickedID: 27978
-    m_ExpandedIDs: 00000000966c0000a06c000000ca9a3b
+    m_SelectedIDs: 005a0000
+    m_LastClickedID: 23040
+    m_ExpandedIDs: 00000000005a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1038,7 +1738,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000966c000000ca9a3b
+    m_ExpandedIDs: 00000000005a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1065,7 +1765,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1082,7 +1782,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 12}
+      m_ClientGUIView: {fileID: 13}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1094,7 +1794,7 @@ MonoBehaviour:
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
---- !u!114 &19
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1115,9 +1815,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 874
-    y: 1071
-    width: 1260
-    height: 288
+    y: 829
+    width: 781
+    height: 530
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1128,7 +1828,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
     m_OverlaysVisible: 1
---- !u!114 &20
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
