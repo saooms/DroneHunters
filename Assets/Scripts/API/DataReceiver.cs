@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -8,18 +7,11 @@ using System.IO;
 
 namespace API
 {
-    public class DataReceiver
+    public class DataReceiver : TestDataSource
     {
-        private Timer stubTimer;
-        private string stubSource;
+        private Timer _stubTimer;
 
-        /// <param name="source">
-        ///     Path to a JSON file with flight path data.
-        /// </param>
-        public DataReceiver(string source)
-        {
-            stubSource = source;
-        }
+        public DataReceiver(string source) : base(source) { }
 
         /// <summary>
         ///     Starts the process of receiving data.
@@ -31,33 +23,19 @@ namespace API
         /// <param name="callback">
         ///     A method that will get called when data is received.
         /// </param>
-        public void StartReceiveData(Action<Coordinate> callback)
+        public override void StartReceiveData(Action<Coordinate> callback)
         {
             StopReceiveData();
+            base.StartReceiveData(callback);
 
-            List<Coordinate> data = DataStub();
-            int index = 0;
-            stubTimer = new Timer((e) =>{
-                callback(data[index++ % data.Count]);
+            _stubTimer = new Timer((e) =>{
+                Step();
             }, null, 0, 500);
         }
 
-        public void StopReceiveData()
+        public override void StopReceiveData()
         {
-            stubTimer?.Dispose();
+            _stubTimer?.Dispose();
         }
-
-        private List<Coordinate> DataStub()
-        {
-            string text = File.ReadAllText(stubSource);
-            CoordinateCollectionWrapper wrapper = JsonUtility.FromJson<CoordinateCollectionWrapper>(text);
-            return wrapper.data;
-        }
-    }
-
-    [Serializable]
-    public struct CoordinateCollectionWrapper
-    {
-        public List<Coordinate> data;
     }
 }

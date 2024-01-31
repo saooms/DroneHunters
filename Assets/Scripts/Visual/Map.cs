@@ -7,49 +7,50 @@ namespace Visual
 {
     public class Map : MonoBehaviour, IInteractable
     {
-        public static Map activeMap; // sneaky sneaky
+        public static Map ActiveMap;
+        public static int MapSize => (int)Mathf.Pow(2, Zoom);
 
-        private Vector2 _mapOffset = Vector2.zero;
-        
         [SerializeField] private Transform mapChunkPrefab;
         [SerializeField] private DroneMarker hunterDronePrefab;
         [SerializeField] private DroneMarker targetDronePrefab;
+        [SerializeField] private DroneMarker predictionPrefab;
         [SerializeField] private Transform mapHolder;
 
         [SerializeField] private int mapWidth;
         [SerializeField] private int mapHeight;
-        
-        private int zoom = 1;
-        private Vector3 dragOrigin = Vector2.zero;
-        private Dictionary<Vector2, GameObject> panels = new Dictionary<Vector2, GameObject>();
 
-        public static int planeScale = 10;
+        private Vector3 _dragOrigin = Vector2.zero;
+        private readonly Dictionary<Vector3, GameObject> _panels = new Dictionary<Vector3, GameObject>();
+
+        public static int PlaneScale => 10;
+        public static int Zoom = 1;
 
         private void Awake()
         {
-            activeMap = this;
-            UpdateMap();
+            ActiveMap = this;
+            Zoom = 18;
+            Focus(new Coordinate(new Vector3(51.9171581691157f, 1, 4.483959781570087f)));
         }
 
         /// <summary>
         ///     Sets the zoom value and updates the map.
         /// </summary>
-        private void ChangeZoom(int zoom)
+        private bool ChangeZoom(int zoom)
         {
-            zoom = Mathf.Clamp(zoom, 1, 13);
+            zoom = Mathf.Clamp(zoom, 1, 19);
 
-            if (this.zoom == zoom)
-                return;
+            if (Zoom == zoom)
+                return false;
 
-            this.zoom = Mathf.Clamp(zoom, 1, 13);
+            Zoom = zoom;
 
-            foreach (GameObject child in panels.Values)
+            foreach (GameObject child in _panels.Values)
             {
                 Destroy(child);
             }
-            panels.Clear();
+            _panels.Clear();
 
-            UpdateMap();
+            return true;
         }
 
         /// <summary>
@@ -57,79 +58,64 @@ namespace Visual
         /// </summary>
         private void UpdateMap()
         {
-            Vector3 panelsPos = GamePostionToMapPanel(Camera.main.transform.position);
+            Vector3 panelsPos = MapChunk.GamePositionToMapPanel(new Vector3(Camera.main.transform.position.x, 0, Camera.main.transform.position.z));
+            panelsPos.z = MapSize - panelsPos.z;
 
-            for (int x = 0; x < mapWidth; x++)
+            for (int x = -mapWidth; x < mapWidth; x++)
             {
-                for (int y = 0; y < mapHeight; y++)
+                for (int z = -mapWidth; z < mapHeight; z++)
                 {
-                    LoadChunk(panelsPos + new Vector3(x, y, zoom));
+                    LoadChunk(new MapChunk(panelsPos + new Vector3(x, 0, z)));
                 }
             }
         }
 
-        private async void LoadChunk(Vector3 position)
+        private async void LoadChunk(MapChunk chunk)
         {
-            //position = new Vector3(position.x Mathf.Pow(2, zoom));
-            Debug.Log(position);
-
-            if (panels.ContainsKey(position))
+            if (_panels.ContainsKey(chunk.Position))
                 return;
 
-            panels.Add(position, null);
-
-            Vector3 relativePosition = new Vector3(position.x, 0, position.y) * planeScale;
-            Vector3 offset = new Vector3(.5f * planeScale, 0, .5f * planeScale);
+            _panels.Add(chunk.Position, null);
 
             Texture2D tex = new Texture2D(10, 10);
 
-            byte[] mapImage =  await API.Map.GetMapSegment(CalculateSlippyCoordinates(position));
+            byte[] mapImage = await chunk.GetMapSegment();
+
             if (mapImage != null)
-            {
                 tex?.LoadImage(mapImage);
-            }
 
-            Renderer panel = Instantiate(mapChunkPrefab, relativePosition + offset, Quaternion.Euler(0,180,0), mapHolder).GetComponent<Renderer>();
+            Renderer panel = Instantiate(mapChunkPrefab, chunk.GetGamePosition(), Quaternion.Euler(0,180,0), mapHolder).GetComponent<Renderer>();
             panel.material.mainTexture = tex;
-            panels[position] = panel.gameObject;
-        }
-
-        private Vector3 CalculateSlippyCoordinates(Vector3 position)
-        {
-            return position;
+            _panels[chunk.Position] = panel.gameObject;
         }
 
         public void OnInteraction()
         {
-            // left mouse button click
-            if (Input.GetMouseButtonDown(0))
+            // right mouse button click
+            if (Input.GetMouseButtonDown(1))
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
-                {
-                    PlaceMarker(hit.point, hunterDronePrefab.transform);
+                //if (Physics.Raycast(ray, out RaycastHit hit))
+                //{
+                //    Coordinate pos = new Coordinate(new Vector3(hit.point.x, 1, hit.point.z), Coordinate.Type.Game);
 
-                    Vector3 worldPos = new Vector3(Mathf.Abs(hit.point.x) / planeScale, zoom, hit.point.z / planeScale);
-                    Debug.Log(worldPos);
-                    Vector3 gamePos = Coordinate.MapPositionToWorldPosition(worldPos);
-                    Debug.Log(gamePos);
-                    Debug.Log(Coordinate.WorldPositionToMapPosition(gamePos));
-                }
+                //    PlaceDroneMarker(new HunterDrone(pos, null), MapMarker.MarkerType.Hunter);
+                //}
+
             }
             
             // middle mouse button click
-            if (Input.GetMouseButtonDown(2))
+            if (Input.GetMouseButtonDown(0))
             {
-                dragOrigin = Input.mousePosition; 
+                _dragOrigin = Input.mousePosition; 
             }
 
-            // middle mouse button click helddown
-            if (Input.GetMouseButton(2))
+            // middle mouse button click held down
+            if (Input.GetMouseButton(0))
             {
-                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-                Vector3 move = new Vector3(pos.x * 0.2f, 0, pos.y * 0.2f);
+                Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - _dragOrigin);
+                Vector3 move = new Vector3(-pos.x, 0, -pos.y) * 0.2f;
                 Camera.main.transform.Translate(move, Space.World);
 
                 UpdateMap();
@@ -137,40 +123,41 @@ namespace Visual
 
             // scroll
             if (Input.mouseScrollDelta.y != 0)
-                ChangeZoom(zoom + (int)Input.mouseScrollDelta.y);
-        }
-        public Vector3 GamePostionToMapPanel(Vector3 position)
-        {
-            return new Vector3(
-                Mathf.Clamp(Mathf.Floor(position.x / planeScale), 0, Mathf.Pow(2, position.z)),
-                Mathf.Clamp(Mathf.Floor(position.z / planeScale), 0, Mathf.Pow(2, position.z)),
-                position.z);
-        }
+            {
+                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        public void PlaceMarker(Vector3 position, Transform markerPrefab)
-        {
-            if (markerPrefab == null)
-                return;
-
-            Instantiate(markerPrefab, position, markerPrefab.rotation);
+                Coordinate focus = new Coordinate(worldPosition, Coordinate.Type.Game);
+                if (ChangeZoom(Zoom + (int)Input.mouseScrollDelta.y))
+                    Focus(focus);
+            }
         }
 
-        public DroneMarker PlaceDrone(Drone drone)
+        private void Focus(Coordinate origin)
         {
-            DroneMarker marker = Instantiate(targetDronePrefab, drone.position.worldPosition, targetDronePrefab.transform.rotation);
+            Coordinate.MapOffset += new Vector2(origin.GamePosition.x, origin.GamePosition.z);
+            Vector3 camPosition = origin.GamePosition;
+            camPosition.y = Camera.main.transform.position.y;
+            Camera.main.transform.position = camPosition;
+            UpdateMap();
+        }
+
+        public DroneMarker PlaceDroneMarker(Drone drone, MapMarker.MarkerType type)
+        {
+            Vector3 dronePosition = drone.Position?.GamePosition ?? Vector3.one;
+            DroneMarker marker = Instantiate(GetPrefab(type), dronePosition, GetPrefab(type).transform.rotation);
             marker.AllocateDrone(drone);
 
             return marker;
         }
 
-        public static Vector3 MapPositionToGamePosition()
+        private DroneMarker GetPrefab(MapMarker.MarkerType type)
         {
-            return new();
-        }
-
-        public static Vector3 GamePositionToMapPosition(Vector3 gamePosition)
-        {
-            return new();
+            return type switch
+            {
+                MapMarker.MarkerType.Hunter => hunterDronePrefab,
+                MapMarker.MarkerType.Prediction => predictionPrefab,
+                _ => targetDronePrefab
+            };
         }
     }
 }

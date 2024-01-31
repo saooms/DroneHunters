@@ -10,24 +10,33 @@ namespace Visual
     {
         [SerializeField] private GameObject defaultInteractable = null;
 
-        void Update()
+        private void Update()
         {
             if (Input.anyKey || Input.mouseScrollDelta.y != 0)
             {
-                var eventData = new PointerEventData(EventSystem.current);
+                IInteractable interactableA = null;
+                IInteractable interactableB = null;
+
+                // 3D
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out RaycastHit hit))
+                    hit.transform.TryGetComponent(out interactableA);
+
+                // 2D
+                PointerEventData eventData = new PointerEventData(EventSystem.current);
                 eventData.position = Input.mousePosition;
-                var results = new List<RaycastResult>();
+                List<RaycastResult> results = new List<RaycastResult>();
                 EventSystem.current.RaycastAll(eventData, results);
 
-                IInteractable interactable = null;
-
                 if (results.Count > 0)
-                    results.Any(e => e.gameObject.TryGetComponent(out interactable));
+                    results.Any(e => e.gameObject.TryGetComponent(out interactableB));
 
-                else if(defaultInteractable ?? true)
-                    defaultInteractable.TryGetComponent(out interactable);
+                if(defaultInteractable != null)
+                    defaultInteractable.TryGetComponent(out interactableB);
 
-                interactable?.OnInteraction();
+                interactableA?.OnInteraction();
+                interactableB?.OnInteraction();
             }
         }
     }

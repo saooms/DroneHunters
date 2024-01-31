@@ -11,25 +11,19 @@ namespace API
     public static class Map
     {
         public static async Task<byte[]> GetMapSegment(Vector3 coordinate) {
-            using (var client = new HttpClient())
-            {
-                Debug.Log(coordinate);
-                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion");
-                client.DefaultRequestHeaders.Add("Accept", "*/*");
-                client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
-                client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion");
+            client.DefaultRequestHeaders.Add("Accept", "*/*");
+            client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+            client.DefaultRequestHeaders.Add("Connection", "keep-alive");
 
-                HttpResponseMessage response = await client.GetAsync("https://tile.openstreetmap.org/" + coordinate.z + "/" + coordinate.x + "/" + coordinate.y + ".png");
-                
-                if (response.IsSuccessStatusCode)
-                {
-                    byte[] content = await response.Content.ReadAsByteArrayAsync();
+            HttpResponseMessage response = await client.GetAsync("https://tile.openstreetmap.org/" + coordinate.y + "/" + coordinate.x + "/" + coordinate.z + ".png");
 
-                    return content;
-                }
-            }
+            if (!response.IsSuccessStatusCode) return null;
+            
+            byte[] content = await response.Content.ReadAsByteArrayAsync();
 
-            return null;
+            return content;
         }
     }
 }

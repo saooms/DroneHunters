@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,10 @@ namespace Logic
 {
     public class TargetDrone : Drone
     {
-        private DataReceiver receiver;
+        private IDataSource _source;
+
+        public delegate void UpdateEvent();
+        public UpdateEvent OnUpdate;
 
         ~TargetDrone()
         {
@@ -17,30 +21,41 @@ namespace Logic
 
         public void Destroy()
         {
-            receiver?.StopReceiveData();
+            _source?.StopReceiveData();
         }
 
-        public TargetDrone(DataReceiver receiver, Coordinate position, string identifier = "Targetdrone") : base(position, identifier) 
+        public TargetDrone(IDataSource receiver, Coordinate position, string identifier = "Targetdrone") : base(position, identifier, Type.target) 
         {
             Initialize(receiver);
         }
 
-        public TargetDrone(DataReceiver receiver, string identifier = "Targetdrone") : base(new Coordinate(), identifier)
+        public TargetDrone(IDataSource source, string identifier = "Targetdrone") : base(null, identifier, Type.target)
         {
-            Initialize(receiver);
+            Initialize(source);
         }
 
-        private void Initialize(DataReceiver receiver)
+        private void Initialize(IDataSource source)
         {
-            this.receiver = receiver;
-            receiver.StartReceiveData(OnReceiveData);
+            SetDataSource(source);
+        }
 
-            Visual.Map.activeMap.PlaceDrone(this);
+        public IDataSource SetDataSource(IDataSource source)
+        {
+            _source?.StopReceiveData();
+            IDataSource tmp = _source;
+            
+            _source = source;
+            source?.StartReceiveData(OnReceiveData);
+
+            return tmp;
         }
 
         private void OnReceiveData(Coordinate coordinate) 
         {
-            _position = coordinate;
+            AddToFlightPath(coordinate);
+            
+            if (OnUpdate != null)
+                OnUpdate();
         }
     }
 }
